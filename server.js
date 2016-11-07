@@ -36,14 +36,19 @@ app.use(function(req, res, next) {
 
 var COMMENTS_ARRAY = [
     {
-        id: 1388534400000,
+        id: 0,
         author: 'Pete Hunt',
         text: 'Hey there!'
     },
     {
-        id: 1420070400000,
+        id: 1,
         author: 'Paul O’Shannessy',
         text: 'React is *great*!'
+    },
+    {
+        id: 2,
+        author: 'Dhyey Thakore',
+        text: 'Welcome to React **Performance Example**'
     }
 ]
 
@@ -53,11 +58,12 @@ app.get('/api/comments', function(req, res) {
 
 app.post('/api/comments', function(req, res) {
     var newComment = {
-      id: Date.now(),
+      id: COMMENTS_ARRAY.length,
       author: req.body.author,
       text: req.body.text,
     };
-    COMMENTS_ARRAY.push(newComment);
+    COMMENTS_ARRAY.unshift(newComment);
+    console.log(COMMENTS_ARRAY);
     res.json(COMMENTS_ARRAY);
 });
 
