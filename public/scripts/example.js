@@ -9,9 +9,7 @@
  * ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-var devlopment = true;
 var Perf = React.addons.Perf;
-var url = devlopment ? '/api/comments' : 'https://react-example-for-performance.herokuapp.com/api/comments';
 
 var Comment = React.createClass({
   rawMarkup: function() {
@@ -147,6 +145,6 @@ var CommentForm = React.createClass({
 
 
 ReactDOM.render(
-  <CommentBox url={url} pollInterval={2000} />,
+  <CommentBox url='/api/comments' pollInterval={2000} />,
   document.getElementById('content')
 );
