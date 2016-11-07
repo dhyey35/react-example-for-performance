@@ -51,7 +51,6 @@ var CommentBox = React.createClass({
     // not use Date.now() for this and would have a more robust system in place.
     comment.id = Date.now();
     comments.unshift(comment);
-    console.log(comments);
     this.setState({data: comments});
     $.ajax({
       url: this.props.url,
