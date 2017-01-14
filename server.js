@@ -15,8 +15,6 @@ var express = require('express');
 var bodyParser = require('body-parser');
 var app = express();
 
-var COMMENTS_FILE = path.join(__dirname, 'comments.json');
-
 app.set('port', (process.env.PORT || 3000));
 
 app.use('/', express.static(path.join(__dirname, 'public')));
@@ -33,40 +31,6 @@ app.use(function(req, res, next) {
     res.setHeader('Cache-Control', 'no-cache');
     next();
 });
-
-var COMMENTS_ARRAY = [
-    {
-        id: 0,
-        author: 'Pete Hunt',
-        text: 'Hey there!'
-    },
-    {
-        id: 1,
-        author: 'Paul O’Shannessy',
-        text: 'React is *great*!'
-    },
-    {
-        id: 2,
-        author: 'Dhyey Thakore',
-        text: 'Welcome to React **Performance Example**'
-    }
-]
-
-app.get('/api/comments', function(req, res) {
-    res.json(COMMENTS_ARRAY);
-});
-
-app.post('/api/comments', function(req, res) {
-    var newComment = {
-      id: COMMENTS_ARRAY.length,
-      author: req.body.author,
-      text: req.body.text,
-    };
-    COMMENTS_ARRAY.unshift(newComment);
-    console.log(COMMENTS_ARRAY);
-    res.json(COMMENTS_ARRAY);
-});
-
 
 app.listen(app.get('port'), function() {
   console.log('Server started: http://localhost:' + app.get('port') + '/');

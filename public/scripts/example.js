@@ -33,22 +33,28 @@ class CommentBox extends Component {
   }
 
   componentDidMount() {
-    this.loadCommentsFromServer.bind(this);
-    setInterval(this.loadCommentsFromServer.bind(this), this.props.pollInterval);
+    this.loadComments()
   }
 
-  loadCommentsFromServer() {
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      cache: false,
-      success: (data) => {
-        this.setState({data: data});
+  loadComments() {
+    let initialComments = [
+      {
+        author: "Dan Abramov",
+        id: 0,
+        text: "React is awesome"
       },
-      error: (xhr, status, err) => {
-        console.error(this.props.url, status, err.toString());
+      {
+        author: "Kevin Lacker",
+        id: 1,
+        text: "I Love React"
+      },
+      {
+        author: "Dhyey Thakore",
+        id: 2,
+        text: "Welcome to React Performance Example"
       }
-    });
+    ];
+    this.setState({data: initialComments});
   }
 
   handleCommentSubmit(comment) {
@@ -57,19 +63,6 @@ class CommentBox extends Component {
     comment.id = Date.now();
     comments.unshift(comment);
     this.setState({data: comments});
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      type: 'POST',
-      data: comment,
-      success: (data) => {
-        this.setState({data: data});
-      },
-      error: (xhr, status, err) => {
-        this.setState({data: comments});
-        console.error(this.props.url, status, err.toString());
-      }
-    });
   }
   
   render() {
@@ -151,6 +144,6 @@ class CommentForm extends Component {
 
 
 ReactDOM.render(
-  <CommentBox url='/api/comments' pollInterval={2000} />,
+  <CommentBox />,
   document.getElementById('content')
 );
